@@ -18,7 +18,20 @@ yarn add "@journeyapps/sqlcipher"
 ```
 
 # Usage
+## convert existing plaintext database into new encrypted one
+``` js
+const fs = require('fs')
+const sqlite3  = require('@journeyapps/sqlcipher').verbose()
+const passwd = 'my-password-hihi'
+let db = new sqlite3.Database('mydb.plain')
+fs.unlink('mydb.encryp',(err)=>{})
+db.run(`ATTACH DATABASE 'mydb.encryp' AS encrypted KEY '${passwd}';`)
+db.run("SELECT sqlcipher_export('encrypted');")
+db.run("DETACH DATABASE encrypted;")
+console.log('encrypted db created')
+```
 
+## using encrypted database
 ``` js
 var sqlite3 = require('@journeyapps/sqlcipher').verbose();
 var db = new sqlite3.Database('test.db');
@@ -45,6 +58,18 @@ db.serialize(function() {
 });
 
 db.close();
+```
+## Convert enrypted database into plaintext one
+``` js
+const fs = require('fs')
+const sqlite3  = require('@journeyapps/sqlcipher').verbose()
+const passwd = 'my-password-hihi'
+let db = new sqlite3.Database('mydb.encryp')
+fs.unlink('mydb.plain',(err)=>{})
+db.run(`ATTACH DATABASE 'mydb.plain' AS plaintext KEY '';`)
+db.run("SELECT sqlcipher_export('plaintext');")
+db.run("DETACH DATABASE plaintext;")
+console.log('plaintext db created')
 ```
 
 # SQLCipher
