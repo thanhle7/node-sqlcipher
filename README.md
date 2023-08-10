@@ -28,6 +28,7 @@ fs.unlink('mydb.encryp',(err)=>{})
 db.run(`ATTACH DATABASE 'mydb.encryp' AS encrypted KEY '${passwd}';`)
 db.run("SELECT sqlcipher_export('encrypted');")
 db.run("DETACH DATABASE encrypted;")
+db.close()
 console.log('encrypted db created')
 ```
 
@@ -69,6 +70,7 @@ fs.unlink('mydb.plain',(err)=>{})
 db.run(`ATTACH DATABASE 'mydb.plain' AS plaintext KEY '';`)
 db.run("SELECT sqlcipher_export('plaintext');")
 db.run("DETACH DATABASE plaintext;")
+db.close()
 console.log('plaintext db created')
 ```
 
