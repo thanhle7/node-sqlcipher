@@ -18,7 +18,7 @@ yarn add "@journeyapps/sqlcipher"
 ```
 
 # Usage
-## convert existing plaintext database into new encrypted one
+## Convert existing plaintext database into new encrypted one
 ``` js
 const fs = require('fs')
 const sqlite3  = require('@journeyapps/sqlcipher').verbose()
@@ -31,7 +31,7 @@ db.run("DETACH DATABASE encrypted;")
 console.log('encrypted db created')
 ```
 
-## using encrypted database
+## Using encrypted database
 ``` js
 var sqlite3 = require('@journeyapps/sqlcipher').verbose();
 var db = new sqlite3.Database('test.db');
